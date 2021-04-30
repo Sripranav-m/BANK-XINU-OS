@@ -12,11 +12,13 @@ process main(void)
 
 	RingProcessId=create(ring,8192,20,"Ring",0);
 
+	ReminderProcessId=create(reminder,8192,20,"Reminder",0);
+
 	resume(create(shell, 50, 50, "shell", 1, CONSOLE));
 
 	resume(RingProcessId);
 
-	putc('a',SCREEN);
+	resume(ReminderProcessId);
 
 	return OK;
     

@@ -30,7 +30,8 @@ const	struct	cmdent	cmdtab[] = {
 	{"uptime",	FALSE,	xsh_uptime},
 	{"?",		FALSE,	xsh_help},
 	{"stopwatch",FALSE,	xsh_stopwatch},
-	{"play",	FALSE,	xsh_playsongs}
+	{"play",	FALSE,	xsh_playsongs},
+	{"reminder", FALSE, xsh_reminder}
 
 };
 

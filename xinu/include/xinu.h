@@ -59,3 +59,12 @@ extern pid32 StopWatchProcessId;
 extern pid32 RingProcessId;
 
 extern void clearScreen();      // Clear the Screen
+
+extern pid32 ReminderProcessId;
+
+extern bpid32 ReminderPoolId;
+extern struct bpentry* ReminderPoolHead;
+extern struct bpentry* ReminderPoolTail;
+extern int32 NumberOfReminders;
+
+#define MAX_NUMBER_OF_REMINDERS 3

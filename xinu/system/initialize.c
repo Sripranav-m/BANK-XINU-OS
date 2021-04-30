@@ -35,6 +35,14 @@ pid32 Song3ProcId;
 
 pid32 StopWatchProcessId;
 pid32 RingProcessId;
+pid32 ReminderProcessId;
+
+bpid32 ReminderPoolId;
+struct bpentry* ReminderPoolHead;
+struct bpentry* ReminderPoolTail;
+
+int32 NumberOfReminders;
+
 
 int	prcount;		/* Total number of live processes	*/
 pid32	currpid;		/* ID of currently executing process	*/

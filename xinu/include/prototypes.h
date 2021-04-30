@@ -640,3 +640,6 @@ extern void stopwatch(void);
 
 /* in file ring.c */
 extern void ring(void);
+
+/* in file reminder.c */
+extern void reminder(void);

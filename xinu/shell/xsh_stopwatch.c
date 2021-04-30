@@ -1,8 +1,4 @@
 #include <xinu.h>
-#include <stdio.h>
-#include <string.h>
-
-
 
 shellcmd xsh_stopwatch(int32 nargs, char *args[]) {
 	
