@@ -80,5 +80,10 @@ extern	shellcmd  xsh_playsongs	(int32, char *[]);
 extern	shellcmd  xsh_stopwatch	(int32, char *[]);
 
 
-/* in file xsh_reminder.c */
-extern	shellcmd  xsh_reminder	(int32, char *[]);
+
+
+/* in file xsh_bank.c */
+extern	shellcmd  xsh_bank(int32, char *[]);
+
+/* in file xsh_user.c */
+extern	shellcmd  xsh_user(int32, char *[]);

@@ -626,13 +626,13 @@ extern	syscall	yield(void);
 
 
 
-/* in file song1.c */
+/* in file song.c */
 extern void song1(void);
 
-/* in file song2.c */
+/* in file song.c */
 extern void song2(void);
 
-/* in file song3.c */
+/* in file song.c */
 extern void song3(void);
 
 /* in file stopwatch.c */
@@ -641,5 +641,15 @@ extern void stopwatch(void);
 /* in file ring.c */
 extern void ring(void);
 
-/* in file reminder.c */
-extern void reminder(void);
+/* in file deposit.c */
+extern void deposit(void);
+
+/* in file withdraw.c */
+extern void withdraw(void);
+
+/* in file transfer.c */
+extern void transfer(void);
+
+/* in file ads.c */
+extern void ads(void);
+

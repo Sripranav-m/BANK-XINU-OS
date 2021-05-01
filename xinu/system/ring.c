@@ -14,16 +14,17 @@ void ring(void){
 
         message = receive();
 
-        if(message!=0){
+
+        if(message!=0){        // Beep if something is wrong
             char Lyric[5]="BEEP " ;
             fputc('\n',SCREEN);
             for(i=0;i<message;i++){
                 for(j=0;j<5;j++){
-
                     fputc(Lyric[j], SCREEN);
                 }
             }
             fputc('\n',SCREEN);
         }
+
     }
 }

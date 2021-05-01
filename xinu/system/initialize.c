@@ -35,13 +35,26 @@ pid32 Song3ProcId;
 
 pid32 StopWatchProcessId;
 pid32 RingProcessId;
-pid32 ReminderProcessId;
 
-bpid32 ReminderPoolId;
-struct bpentry* ReminderPoolHead;
-struct bpentry* ReminderPoolTail;
+pid32 DepositProcessId;
+pid32 WithdrawProcessId;
+pid32 TransferProcessId;
+pid32 AdProcessId;
 
-int32 NumberOfReminders;
+bpid32 BankAccountPoolId;
+struct bpentry* BankAccountPoolHead;
+struct bpentry* BankAccountPoolTail;
+
+char LoggedInUserName[20];
+char LoggedInUserAccount[5];
+
+char TransferToAccount[5];
+
+int LoggedIn=0;
+
+sid32 TransactionSem;
+
+int TotalBankAccounts=0;
 
 
 int	prcount;		/* Total number of live processes	*/

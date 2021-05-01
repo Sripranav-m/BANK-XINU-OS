@@ -60,11 +60,20 @@ extern pid32 RingProcessId;
 
 extern void clearScreen();      // Clear the Screen
 
-extern pid32 ReminderProcessId;
+extern bpid32 BankAccountPoolId;
+extern struct bpentry* BankAccountPoolHead;
+extern struct bpentry* BankAccountPoolTail;
 
-extern bpid32 ReminderPoolId;
-extern struct bpentry* ReminderPoolHead;
-extern struct bpentry* ReminderPoolTail;
-extern int32 NumberOfReminders;
+extern int TotalBankAccounts;
 
-#define MAX_NUMBER_OF_REMINDERS 3
+extern char LoggedInUserName[20];
+extern char LoggedInUserAccount[5];
+extern int LoggedIn;
+
+extern sid32 TransactionSem;
+extern pid32 DepositProcessId;
+extern pid32 WithdrawProcessId;
+extern pid32 TransferProcessId;
+extern pid32 AdProcessId;
+
+extern char TransferToAccount[5];

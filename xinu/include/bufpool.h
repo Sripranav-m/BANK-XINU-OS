@@ -13,19 +13,21 @@
 #define	BP_MAXN	2048		/* Maximum number of buffers in a pool	*/
 #endif
 
-struct ReminderStruct{
-	uint32 NumberOfRings;
-	uint32 Time;
-	char ReminderMessage[30];
-	uint32 DoneRinging;
+
+struct BankAccountStruct{
+	char UserName[20];
+	char UserPassword[20];
+	char AccountNumber[5];
+	int32 Balance;
 };
 
 struct	bpentry	{		/* Description of a single buffer pool	*/
 	struct	bpentry *bpnext;/* pointer to next free buffer		*/
 	sid32	bpsem;		/* semaphore that counts buffers	*/
-	struct ReminderStruct Reminder;			/*    currently available in the pool	*/
+	struct BankAccountStruct BankAccount;
 	uint32	bpsize;		/* size of buffers in this pool		*/
-	};
+};
+
 
 extern	struct	bpentry buftab[];/* Buffer pool table			*/
 extern	bpid32	nbpools;	/* current number of allocated pools	*/

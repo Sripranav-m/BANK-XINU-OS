@@ -25,7 +25,7 @@ extern	int32	sprintf(char *, char *, ...);
 
 
 /* Prototypes for character input and output functions */
-
+ 
 extern	int32	fgetc(int);
 extern	char	*fgets(char *, int32, int32);
 extern	int32	fputc(int32, int32);
