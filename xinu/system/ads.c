@@ -8,6 +8,10 @@ void ads(void){
     char* Se;
 
     while(1){
+        wait(ScreenSem);
+        AllocatedResources[0][1]=1;
+
+
         AdIdToShow++;
         AdIdToShow=AdIdToShow%5;
         Ss ="\n\n######################   ADVERTISEMENT   ######################\n";
@@ -46,6 +50,10 @@ void ads(void){
         for(i=0;i<strlen(Se);i++){
             fputc(Se[i],SCREEN);
         }
-        sleepms(10000);
+
+        signal(ScreenSem);
+        AllocatedResources[0][1]=0;
+
+        sleepms(30000);
     }
 }

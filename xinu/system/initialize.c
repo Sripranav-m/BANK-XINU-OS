@@ -28,13 +28,12 @@ int32 AlarmIndex=0;
 sid32 AudioSem;
 pid32 AlarmProcId;
 
-sid32 SongSem;
-pid32 Song1ProcId;
-pid32 Song2ProcId;
-pid32 Song3ProcId;
+pid32 ShellProcessId;
+
+pid32 RingProcessId;
 
 pid32 StopWatchProcessId;
-pid32 RingProcessId;
+pid32 ;
 
 pid32 DepositProcessId;
 pid32 WithdrawProcessId;
@@ -55,6 +54,26 @@ int LoggedIn=0;
 sid32 TransactionSem;
 
 int TotalBankAccounts=0;
+
+
+sid32 KeyboardSem;
+sid32 ScreenSem;
+// sid32 ShellSem;
+
+pid32 DeadlockProcessId;
+
+pid32 ReviewProcessId;
+
+pid32 CommentProcessId;
+
+
+int AvailableResources[R];
+int MaxResources[P][R];//max
+int AllocatedResources[P][R];//alloc
+int NeedResources[P][R];//need
+int processes[P];
+
+int Finish[P];
 
 
 int	prcount;		/* Total number of live processes	*/

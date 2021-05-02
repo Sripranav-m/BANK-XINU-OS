@@ -115,6 +115,9 @@ shellcmd xsh_user(int32 nargs, char *args[]) {
             resume(DepositProcessId);
             send(DepositProcessId,amount);
         }
+        else{
+            kprintf("\nPlease log in to continue..\n");
+        }
     }
     else if(nargs==3 && strcmp(args[1],"withdraw")==0){
         if(LoggedIn==1){
@@ -122,6 +125,9 @@ shellcmd xsh_user(int32 nargs, char *args[]) {
             WithdrawProcessId=create(withdraw,8192,20,"Withdraw",0);
             resume(WithdrawProcessId);
             send(WithdrawProcessId,amount);
+        }
+        else{
+            kprintf("\nPlease log in to continue..\n");
         }
     }
 
@@ -133,6 +139,9 @@ shellcmd xsh_user(int32 nargs, char *args[]) {
             resume(TransferProcessId);
             send(TransferProcessId,amount);
         }
+        else{
+            kprintf("\nPlease log in to continue..\n");
+        }
     }
     else if(nargs==2 && strcmp(args[1],"logout")==0){
         if(LoggedIn==1){
@@ -140,6 +149,9 @@ shellcmd xsh_user(int32 nargs, char *args[]) {
             printf("%s\n\n",LoggedInUserName);
             LoggedIn=0;
             send(RingProcessId,1);
+        }
+        else{
+            kprintf("\nPlease log in to continue..\n");
         }
     }
 

@@ -3,6 +3,7 @@
 
 
 void deposit(void){
+
     wait(TransactionSem);
 
     int i,j;
@@ -149,5 +150,6 @@ void deposit(void){
     }
     fputc('\n', SCREEN);
     fputc('\n', SCREEN);
+    
     signal(TransactionSem);
 }

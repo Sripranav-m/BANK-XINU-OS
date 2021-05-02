@@ -626,17 +626,7 @@ extern	syscall	yield(void);
 
 
 
-/* in file song.c */
-extern void song1(void);
 
-/* in file song.c */
-extern void song2(void);
-
-/* in file song.c */
-extern void song3(void);
-
-/* in file stopwatch.c */
-extern void stopwatch(void);
 
 /* in file ring.c */
 extern void ring(void);
@@ -653,3 +643,10 @@ extern void transfer(void);
 /* in file ads.c */
 extern void ads(void);
 
+extern void DeadlockDetect(void);
+
+extern void DeadlockRecovery(void);
+
+void review(void);
+
+void comment(void);
