@@ -249,20 +249,6 @@ extern	devcall	lflseek(struct dentry *, uint32);
 /* in file lflwrite.c */
 extern	devcall	lflwrite(struct dentry *, char *, int32);
 
-/* in file lfscheck.c */
-extern	status	lfscheck(struct lfdir *);
-
-/* in file lfscreate.c */
-extern  status  lfscreate(did32, ibid32, uint32);
-
-/* in file lfsinit.c */
-extern	devcall	lfsinit(struct dentry *);
-
-/* in file lfsopen.c */
-extern	devcall	lfsopen(struct dentry *, char *, char *);
-
-/* in file lfsetup.c */
-extern	status	lfsetup(struct lflcblk *);
 
 /* in file lftruncate.c */
 extern	status	lftruncate(struct lflcblk *);
@@ -309,21 +295,6 @@ extern  void    *memset(void *, const int, int32);
 
 /* in file mkbufpool.c */
 extern	bpid32	mkbufpool(int32, int32);
-
-/* in file mount.c */
-extern	syscall	mount(char *, char *, did32);
-extern	int32	namlen(char *, int32);
-
-/* in file naminit.c */
-extern	status	naminit(void);
-
-/* in file nammap.c */
-extern	devcall	nammap(char *, char[], did32);
-extern	did32	namrepl(char *, char[]);
-extern	status	namcpy(char *, char *, int32);
-
-/* in file namopen.c */
-extern	devcall	namopen(struct dentry *, char *, char *);
 
 /* in file newqueue.c */
 extern	qid16	newqueue(void);
@@ -393,52 +364,6 @@ extern	devcall	ramread(struct dentry *, char *, int32);
 /* in file ramwrite.c */
 extern	devcall	ramwrite(struct dentry *, char *, int32);
 
-/* in file rdsclose.c */
-extern	devcall	rdsclose(struct dentry *);
-
-/* in file rdscontrol.c */
-extern	devcall	rdscontrol(struct dentry *, int32, int32, int32);
-
-/* in file rdsinit.c */
-extern	devcall	rdsinit(struct dentry *);
-
-/* in file rdsopen.c */
-extern	devcall	rdsopen(struct dentry *, char *, char *);
-
-/* in file rdsread.c */
-extern	devcall	rdsread(struct dentry *, char *, int32);
-
-/* in file rdswrite.c */
-extern	devcall	rdswrite(struct dentry *, char *, int32);
-
-/* in file rdsbufalloc.c */
-extern	struct	rdbuff * rdsbufalloc(struct rdscblk *);
-
-/* in file rdscomm.c */
-extern	status	rdscomm(struct rd_msg_hdr *, int32, struct rd_msg_hdr *,
-		int32, struct rdscblk *);
-
-/* in file rdsprocess.c */
-extern	void	rdsprocess(struct rdscblk *);
-
-/* in file sdmcclose.c */
-extern	devcall	sdmcclose(struct dentry *);
-
-/* in file sdmcinit.c */
-extern	devcall	sdmcinit(struct dentry *);
-
-/* in file sdmcopen.c */
-extern	devcall	sdmcopen(struct dentry *, char *, char *);
-
-/* in file sdmcread.c */
-extern	devcall	sdmcread(struct dentry *, char *, int32);
-
-/* in file sdmcwrite.c */
-extern	devcall	sdmcwrite(struct dentry *, char *, int32);
-
-/* in file sdmcdispatch.S */
-extern	interrupt	sdmcdispatch(void);
-
 /* in file read.c */
 extern	syscall	read(did32, char *, uint32);
 
@@ -464,45 +389,9 @@ extern	void	restore(intmask);
 /* in file resume.c */
 extern	pri16	resume(pid32);
 
-/* in file rfsgetmode.c */
-extern	int32	rfsgetmode(char * );
 
-/* in file rflclose.c */
-extern	devcall	rflclose(struct dentry *);
 
-/* in file rfscontrol.c */
-extern	devcall	rfscontrol(struct dentry *, int32, int32, int32);
 
-/* in file rflgetc.c */
-extern	devcall	rflgetc(struct dentry *);
-
-/* in file rflinit.c */
-extern	devcall	rflinit(struct dentry *);
-
-/* in file rflputc.c */
-extern	devcall	rflputc(struct dentry *, char );
-
-/* in file rflread.c */
-extern	devcall	rflread(struct dentry *, char *, int32 );
-
-/* in file rflseek.c */
-extern	devcall	rflseek(struct dentry *, uint32 );
-
-/* in file rflwrite.c */
-extern	devcall	rflwrite(struct dentry *, char *, int32 );
-
-/* in file rfsndmsg.c */
-extern	status	rfsndmsg(uint16, char *);
-
-/* in file rfsinit.c */
-extern	devcall	rfsinit(struct dentry *);
-
-/* in file rfsopen.c */
-extern	devcall	rfsopen(struct dentry  *devptr, char *, char *);
-
-/* in file rfscomm.c */
-extern	int32	rfscomm(struct rf_msg_hdr *, int32,
-			struct rf_msg_hdr *, int32);
 /* in file seek.c */
 extern	syscall	seek(did32, uint32);
 

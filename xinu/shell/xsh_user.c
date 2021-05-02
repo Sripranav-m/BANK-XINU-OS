@@ -154,7 +154,7 @@ shellcmd xsh_user(int32 nargs, char *args[]) {
             kprintf("\nPlease log in to continue..\n");
         }
     }
-    else if(nargs==3 && strcmp(args[1],"balance")==0){
+    else if(nargs==2 && strcmp(args[1],"balance")==0){
         if(LoggedIn==1){
             struct bpentry* headtemp;
             headtemp=BankAccountPoolHead;

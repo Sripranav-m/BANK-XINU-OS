@@ -213,7 +213,7 @@ void DeadlockRecovery(void){
                 if(AllocatedResources[i][k]){
                     AvailableResources[k] += AllocatedResources[i][k];
                     AllocatedResources[i][k]=0;
-                    kprintf("Killing a Resource :\n");
+                    kprintf("Deallocating a Resource :\n");
                     if(k==0) {
                         signal(KeyboardSem);
                         kprintf("\t\t Keyboard\n");

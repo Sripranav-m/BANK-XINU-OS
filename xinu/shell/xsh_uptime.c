@@ -1,8 +1,6 @@
 /* xsh_uptime.c - xsh_uptime */
 
 #include <xinu.h>
-#include <stdio.h>
-#include <string.h>
 
 /*------------------------------------------------------------------------
  * xsh_uptime - shell to print the time the system has been up
