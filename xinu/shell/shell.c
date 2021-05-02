@@ -7,52 +7,22 @@
 /* Table of Xinu shell commands and the function associated with each	*/
 /************************************************************************/
 const	struct	cmdent	cmdtab[] = {
-	// {"argecho",	TRUE,	xsh_argecho},
-	// {"arp",		FALSE,	xsh_arp},
-	// {"cat",		FALSE,	xsh_cat},
 	{"clear",	TRUE,	xsh_clear},
 	{"date",	FALSE,	xsh_date},
-	// {"devdump",	FALSE,	xsh_devdump},
 	{"echo",	FALSE,	xsh_echo},
 	{"exit",	TRUE,	xsh_exit},
 	{"help",	FALSE,	xsh_help},
-	// {"kill",	TRUE,	xsh_kill},
-	// {"memdump",	FALSE,	xsh_memdump},
-	// {"memstat",	FALSE,	xsh_memstat},
-	// {"netinfo",	FALSE,	xsh_netinfo},
-	// {"ping",	FALSE,	xsh_ping},
 	{"ps",		FALSE,	xsh_ps},
-	// {"sleep",	FALSE,	xsh_sleep},
-	// {"udp",		FALSE,	xsh_udpdump},
-	// {"udpecho",	FALSE,	xsh_udpecho},
-	//{"udpeserver",	FALSE,	xsh_udpeserver},
 	{"uptime",	FALSE,	xsh_uptime},
 	{"?",		FALSE,	xsh_help},
 	{"bank",FALSE, xsh_bank},
 	{"user",FALSE, xsh_user},
 	{"review",FALSE,xsh_reviewcomment},
 	{"comment",FALSE,xsh_reviewcomment}
-
+	// Add all the required shell commands here...
 };
 
 uint32	ncmd = sizeof(cmdtab) / sizeof(struct cmdent);
-
-/************************************************************************/
-/* shell  -  Provide an interactive user interface that executes	*/
-/*	     commands.  Each command begins with a command name, has	*/
-/*	     a set of optional arguments, has optional input or		*/
-/*	     output redirection, and an optional specification for	*/
-/*	     background execution (ampersand).  The syntax is:		*/
-/*									*/
-/*		   command_name [args*] [redirection] [&]		*/
-/*									*/
-/*	     Redirection is either or both of:				*/
-/*									*/
-/*				< input_file				*/
-/*			or						*/
-/*				> output_file				*/
-/*									*/
-/************************************************************************/
 
 process	shell (
 		did32	dev		/* ID of tty device from which	*/
@@ -102,6 +72,7 @@ process	shell (
 	/* Continually prompt the user, read input, and execute command	*/
 
 	while (TRUE) {
+		// wait(ShellSem);
 
 		/* Display prompt */
 
@@ -260,13 +231,9 @@ process	shell (
 			}
 			continue;
 		}
-		/* Spawn child thread for non-built-in commands */
-
 		child = create(cmdtab[j].cfunc,
 			SHELL_CMDSTK, SHELL_CMDPRIO,
 			cmdtab[j].cname, 2, ntok, &tmparg);
-
-		/* If creation or argument copy fails, report error */
 
 		if ((child == SYSERR) ||
 		    (addargs(child, ntok, tok, tlen, tokbuf, &tmparg)
@@ -274,12 +241,8 @@ process	shell (
 			fprintf(dev, SHELL_CREATMSG);
 			continue;
 		}
-
-		/* Set stdinput and stdoutput in child to redirect I/O */
-
 		proctab[child].prdesc[0] = stdinput;
 		proctab[child].prdesc[1] = stdoutput;
-
 		msg = recvclr();
 		resume(child);
 		if (! backgnd) {
@@ -288,13 +251,8 @@ process	shell (
 				msg = receive();
 			}
 		}
+		// signal(ShellSem);
     }
-
-    /* Terminate the shell process by returning from the top level */
-
     fprintf(dev,SHELL_EXITMSG);
     return OK;
-
-
-
 }

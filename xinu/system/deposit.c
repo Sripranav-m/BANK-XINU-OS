@@ -3,19 +3,14 @@
 
 
 void deposit(void){
-
-    wait(TransactionSem);
-
+    wait(TransactionSem);//wait on transaction semaphore
     int i,j;
     char* L="***************************************************";
     for(j=0;j<strlen(L);j++){
         fputc(L[j], SCREEN);
     }
-
     umsg32 message;
     message=receive();
-
-
     ///////////////////////////////////////STAGE 1 : SAY STARTED /////////////////////////////////////
     fputc('\n', SCREEN);
     char* Lyric="Started Deposit Process with amount Rs " ;
@@ -46,31 +41,13 @@ void deposit(void){
         OnScreen='0'+Display[i];
         fputc(OnScreen, SCREEN);
     }
-
-    fputc('\n', SCREEN);
-    fputc('\n', SCREEN);
-
+    fputc('\n', SCREEN);fputc('\n', SCREEN);
+    sleepms(1000);fputc('.',SCREEN);fputc('.',SCREEN);fputc('.',SCREEN);
+    sleepms(1000);fputc('.',SCREEN);fputc('.',SCREEN);fputc('.',SCREEN);
+    sleepms(1000);fputc('.',SCREEN);fputc('.',SCREEN);fputc('.',SCREEN);
+    sleepms(1000);fputc('.',SCREEN);fputc('.',SCREEN);fputc('.',SCREEN);
     sleepms(1000);
-    fputc('.',SCREEN);
-    fputc('.',SCREEN);
-    fputc('.',SCREEN);
-    sleepms(1000);
-    fputc('.',SCREEN);
-    fputc('.',SCREEN);
-    fputc('.',SCREEN);
-    sleepms(1000);
-    fputc('.',SCREEN);
-    fputc('.',SCREEN);
-    fputc('.',SCREEN);
-    sleepms(1000);
-    fputc('.',SCREEN);
-    fputc('.',SCREEN);
-    fputc('.',SCREEN);
-    sleepms(1000);
-
     ///////////////////////////////////////STAGE 2 : PROCESS THE DEPOSIT /////////////////////////////////////
-
-
     char* Lyricc="\nDepositing" ;
     for(j=0;j<strlen(Lyricc);j++){
         fputc(Lyricc[j], SCREEN);
@@ -85,30 +62,13 @@ void deposit(void){
         }
         headtemp=headtemp->bpnext;
     }
-
-
+    sleepms(1000);fputc('.',SCREEN);fputc('.',SCREEN);fputc('.',SCREEN);
+    sleepms(1000);fputc('.',SCREEN);fputc('.',SCREEN);fputc('.',SCREEN);
+    sleepms(1000);fputc('.',SCREEN);fputc('.',SCREEN);fputc('.',SCREEN);
+    sleepms(1000);fputc('.',SCREEN);fputc('.',SCREEN);fputc('.',SCREEN);
     sleepms(1000);
-    fputc('.',SCREEN);
-    fputc('.',SCREEN);
-    fputc('.',SCREEN);
-    sleepms(1000);
-    fputc('.',SCREEN);
-    fputc('.',SCREEN);
-    fputc('.',SCREEN);
-    sleepms(1000);
-    fputc('.',SCREEN);
-    fputc('.',SCREEN);
-    fputc('.',SCREEN);
-    sleepms(1000);
-    fputc('.',SCREEN);
-    fputc('.',SCREEN);
-    fputc('.',SCREEN);
-    sleepms(1000);
-
     ///////////////////////////////////////STAGE 3 : DO THE DEPOSIT AND DONE /////////////////////////////////////
-
     headtemp->BankAccount.Balance+=message;
-
     char* Lyriccc="\nDeposited the amount" ;
     fputc('\n',SCREEN);
     for(j=0;j<strlen(Lyriccc);j++){
@@ -142,14 +102,11 @@ void deposit(void){
         OnScreen='0'+Displayy[i];
         fputc(OnScreen, SCREEN);
     }
-    fputc('\n', SCREEN);
-    fputc('\n', SCREEN);
-
+    fputc('\n', SCREEN);fputc('\n', SCREEN);
     for(j=0;j<strlen(L);j++){
         fputc(L[j], SCREEN);
     }
-    fputc('\n', SCREEN);
-    fputc('\n', SCREEN);
+    fputc('\n', SCREEN);fputc('\n', SCREEN);
     
-    signal(TransactionSem);
+    signal(TransactionSem);//signal transaction semaphore
 }

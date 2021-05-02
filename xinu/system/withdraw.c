@@ -3,25 +3,21 @@
 
 
 void withdraw(void){
-    wait(TransactionSem);
+    wait(TransactionSem);//wait the transaction semaphore 
 
     int i,j;
     char* L="***************************************************";
     for(j=0;j<strlen(L);j++){
         fputc(L[j], SCREEN);
     }
-
     umsg32 message;
     message=receive();
-
-
     ///////////////////////////////////////STAGE 1 : SAY STARTED /////////////////////////////////////
     fputc('\n', SCREEN);
     char* Lyric="Started Withdraw Process with amount Rs " ;
     for(j=0;j<strlen(Lyric);j++){
         fputc(Lyric[j], SCREEN);
     }
-
     int Display[10]={0,0,0,0,0,0,0,0,0,0};
     char OnScreen;
     j=message;
@@ -46,31 +42,14 @@ void withdraw(void){
         fputc(OnScreen, SCREEN);
     }
 
-    fputc('\n', SCREEN);
-    fputc('\n', SCREEN);
+    fputc('\n', SCREEN);fputc('\n', SCREEN);
 
+    sleepms(1000);fputc('.',SCREEN);fputc('.',SCREEN);fputc('.',SCREEN);
+    sleepms(1000);fputc('.',SCREEN);fputc('.',SCREEN);fputc('.',SCREEN);
+    sleepms(1000);fputc('.',SCREEN);fputc('.',SCREEN);fputc('.',SCREEN);
+    sleepms(1000);fputc('.',SCREEN);fputc('.',SCREEN);fputc('.',SCREEN);
     sleepms(1000);
-    fputc('.',SCREEN);
-    fputc('.',SCREEN);
-    fputc('.',SCREEN);
-    sleepms(1000);
-    fputc('.',SCREEN);
-    fputc('.',SCREEN);
-    fputc('.',SCREEN);
-    sleepms(1000);
-    fputc('.',SCREEN);
-    fputc('.',SCREEN);
-    fputc('.',SCREEN);
-    sleepms(1000);
-    fputc('.',SCREEN);
-    fputc('.',SCREEN);
-    fputc('.',SCREEN);
-    sleepms(1000);
-
     ///////////////////////////////////////STAGE 2 : PROCESS THE Withdrawl /////////////////////////////////////
-
-
-
     struct bpentry* headtemp;
     headtemp=BankAccountPoolHead;
     while(headtemp){
@@ -79,8 +58,6 @@ void withdraw(void){
         }
         headtemp=headtemp->bpnext;
     }
-
-
     if(headtemp->BankAccount.Balance>message){
         char* Lyricc="\nWithdrawing" ;
         for(j=0;j<strlen(Lyricc);j++){
@@ -89,22 +66,10 @@ void withdraw(void){
         fputc('\n',SCREEN);
 
 
-        sleepms(1000);
-        fputc('.',SCREEN);
-        fputc('.',SCREEN);
-        fputc('.',SCREEN);
-        sleepms(1000);
-        fputc('.',SCREEN);
-        fputc('.',SCREEN);
-        fputc('.',SCREEN);
-        sleepms(1000);
-        fputc('.',SCREEN);
-        fputc('.',SCREEN);
-        fputc('.',SCREEN);
-        sleepms(1000);
-        fputc('.',SCREEN);
-        fputc('.',SCREEN);
-        fputc('.',SCREEN);
+        sleepms(1000);fputc('.',SCREEN);fputc('.',SCREEN);fputc('.',SCREEN);
+        sleepms(1000);fputc('.',SCREEN);fputc('.',SCREEN);fputc('.',SCREEN);
+        sleepms(1000);fputc('.',SCREEN);fputc('.',SCREEN);fputc('.',SCREEN);
+        sleepms(1000);fputc('.',SCREEN);fputc('.',SCREEN);fputc('.',SCREEN);
         sleepms(1000);
 
         ///////////////////////////////////////STAGE 3 : DO THE WITHDRAW AND DONE /////////////////////////////////////
@@ -167,6 +132,5 @@ void withdraw(void){
         fputc('\n', SCREEN);
         send(RingProcessId,2);
     }
-
-    signal(TransactionSem);
+    signal(TransactionSem);//signal the transaction semaphore 
 }

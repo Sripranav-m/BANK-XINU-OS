@@ -58,15 +58,16 @@ int TotalBankAccounts=0;
 
 sid32 KeyboardSem;
 sid32 ScreenSem;
-// sid32 ShellSem;
+sid32 ShellSem;
 
-int32 algoPolicy;
 
 pid32 DeadlockProcessId;
 
 pid32 ReviewProcessId;
 
 pid32 CommentProcessId;
+
+pid32 SecurityProcessId;
 
 
 int AvailableResources[R] = {1, 1};
@@ -104,7 +105,6 @@ pid32	currpid;		/* ID of currently executing process	*/
 
 void	nulluser()
 {	
-	algoPolicy = 0;
 	struct	memblk	*memptr;	/* Ptr to memory block		*/
 	uint32	free_mem;		/* Total amount of free memory	*/
 	

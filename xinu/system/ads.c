@@ -8,8 +8,8 @@ void ads(void){
     char* Se;
 
     while(1){
-        wait(ScreenSem);
-        AllocatedResources[0][1]=1;
+        wait(ScreenSem);// hold the screen semaphore
+        AllocatedResources[0][1]=1;// change the resources
         AvailableResources[1]=0;
 
         AdIdToShow++;
@@ -51,8 +51,8 @@ void ads(void){
             fputc(Se[i],SCREEN);
         }
 
-        signal(ScreenSem);
-        AllocatedResources[0][1]=0;
+        signal(ScreenSem);// release the screen semaphore
+        AllocatedResources[0][1]=0;// change the resources
         AvailableResources[1]=1;
         
         sleepms(30000);

@@ -4,15 +4,15 @@ void review(void){
     wait(ScreenSem);
     AllocatedResources[2][1]=1;
     AvailableResources[1]=0;
-    clearScreen();
+
 
     int i;
     char* Ss="$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$\n";
     char* Rev1="\nHow Do You Like Our Bank Services?\n";
     char* Rev2="Please Give us your review\n";
-    char* Rev5="Please Provide your review after 10 seconds...\n";
+    char* Rev5="Please Provide your review after 7 seconds...\n";
     char* Rev4="Please Provide your review now...\n\n";
-    char* Rev6="Your ";
+    char* Rev6="Your Review is : ";
     char* Se="\n\n$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$\n";
     for(i=0;i<strlen(Ss);i++){
         fputc(Ss[i],SCREEN);
@@ -27,7 +27,7 @@ void review(void){
         fputc(Rev5[i],SCREEN);
     }
 
-    sleepms(10000);
+    sleepms(7000);
 
 
     wait(KeyboardSem);
@@ -37,6 +37,7 @@ void review(void){
 
     kill(ShellProcessId);
     ShellProcessId=0;
+    wait(ShellSem);
 
 
     for(i=0;i<strlen(Rev4);i++){
@@ -64,18 +65,15 @@ void review(void){
     }
 
 
-    ShellProcessId=create(shell, 50, 50, "shell", 1, CONSOLE);
-	resume(ShellProcessId);
-
-
     signal(KeyboardSem);
     AllocatedResources[2][0]=0;
     AvailableResources[0]=1;
 
-
     signal(ScreenSem);
     AllocatedResources[2][1]=0;
     AvailableResources[1]=1;
+
+    signal(ShellSem);
 }
 
 void comment(void){
@@ -83,10 +81,9 @@ void comment(void){
     AllocatedResources[1][0]=1;
     AvailableResources[0]=0;
 
-
     kill(ShellProcessId);
     ShellProcessId=0;
-
+    wait(ShellSem);
 
     kprintf("\n Comment:\t");
     int val,i,j;
@@ -100,12 +97,10 @@ void comment(void){
         j=i;
     }
 
-
     wait(ScreenSem);
     AllocatedResources[1][1]=1;
     AvailableResources[1]=0;
     
-
     char* Ss="\n\n$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$\n";
     char* Rev1="\nThanks for providing your valuale comment...\n";
     char* Rev2="You Wrote :\n\n";
@@ -126,11 +121,6 @@ void comment(void){
         fputc(Ss[i],SCREEN);
     }
 
-
-    ShellProcessId=create(shell, 50, 50, "shell", 1, CONSOLE);
-	resume(ShellProcessId);
-
-
     signal(ScreenSem);
     AllocatedResources[1][1]=0;
     AvailableResources[1]=1;
@@ -139,4 +129,6 @@ void comment(void){
     signal(KeyboardSem);
     AllocatedResources[1][0]=0;
     AvailableResources[0]=1;
+
+    signal(ShellSem);
 }

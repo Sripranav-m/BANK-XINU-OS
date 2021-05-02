@@ -149,16 +149,13 @@ shellcmd xsh_bank(int32 nargs, char *args[]) {
         }
         kprintf("========================================================\n\n");
     }
-
     else if(nargs==3 && strcmp(args[1],"account")==0 && strcmp(args[2],"rules")==0){
         kprintf("\nFollow The Rules given below while creating an account\n");
         kprintf("\nThe account Name should only contain small case english alphabets");
         kprintf("\nThe account Name should be less than 20 characters");
         kprintf("\nThe account Password should only contain numbers from 0 to 9");
         kprintf("\nThe account Password length should be less than 10\n\n");
-
     }
-
     else if(nargs==4 && strcmp(args[1],"account")==0 && strcmp(args[2],"show")==0 && strcmp(args[3],"all")==0){
         struct bpentry* headtemp;
         headtemp=BankAccountPoolHead;
@@ -218,7 +215,6 @@ shellcmd xsh_bank(int32 nargs, char *args[]) {
             headtemp=headtemp->bpnext;
         }
     }
-
     else{
         kprintf("\nAvailable Commands are:\n");
         kprintf("bank addaccount\n");

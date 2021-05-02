@@ -19,47 +19,25 @@ void	resched(void)		/* Assumes interrupts are disabled	*/
 		Defer.attempt = TRUE;
 		return;
 	}
+
 	/* Point to process table entry for the current (old) process */
+
 	ptold = &proctab[currpid];
-	if(algoPolicy == 0 ){
-		/*Normal max prioirty scheduling alogrithm*/
-		if (ptold->prstate == PR_CURR) {  /* Process remains eligible */
-			if (ptold->prprio > firstkey(readylist)) {
-				return;
-			}
-			/* Old process will no longer remain current */
 
-			ptold->prstate = PR_READY;
-			insert(currpid, readylist, ptold->prprio);
-			
+	if (ptold->prstate == PR_CURR) {  /* Process remains eligible */
+		if (ptold->prprio > firstkey(readylist)) {
+			return;
 		}
-		currpid = dequeue(readylist);
-	}
-	else{
-		/*Lottery scheduling algorithm using random number*/
-		int32 num = 1 + rand();	
 
-		if (ptold->prstate == PR_CURR) {  /* Process remains eligible */
-			
-			/* Old process will no longer remain current */
+		/* Old process will no longer remain current */
 
-			ptold->prstate = PR_READY;
-			insert(currpid, readylist, ptold->prprio);
-		}
-		
-		int total_tickets;
-
-		// get total tickets by couting tickets for process in ready list. 
-		total_tickets = getTickets(readylist);
-		
-		num = num % total_tickets;
-
-		
-
-		currpid = dequeueProcess(readylist, num);
+		ptold->prstate = PR_READY;
+		insert(currpid, readylist, ptold->prprio);
 	}
 
 	/* Force context switch to highest priority ready process */
+
+	currpid = dequeue(readylist);
 	ptnew = &proctab[currpid];
 	ptnew->prstate = PR_CURR;
 	preempt = QUANTUM;		/* Reset time slice for process	*/

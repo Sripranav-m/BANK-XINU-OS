@@ -1,7 +1,6 @@
 #include <xinu.h>
 
 shellcmd xsh_user(int32 nargs, char *args[]) {
-
     if(nargs==2 && strcmp(args[1],"login")==0){
         if(LoggedIn==1){
             kprintf("\nAlready a user is logged in.\n");
@@ -53,7 +52,7 @@ shellcmd xsh_user(int32 nargs, char *args[]) {
             }
             if(i==0){
                 kprintf("\nNo account exists with this account number\n");
-                send(RingProcessId,5);
+                send(RingProcessId,10);
             }
             else{
                 //////////////////////////////////////ASK USER PASSWORD////////////////////////////////////////
@@ -94,7 +93,7 @@ shellcmd xsh_user(int32 nargs, char *args[]) {
                 }
                 if(i==0){
                     kprintf("\nWrong Password Entered\n");
-                    send(RingProcessId,7);
+                    send(RingProcessId,10);
                 }
                 else{
                     strcpy(LoggedInUserName,headtemp->BankAccount.UserName);
@@ -128,9 +127,9 @@ shellcmd xsh_user(int32 nargs, char *args[]) {
         }
         else{
             kprintf("\nPlease log in to continue..\n");
+            send(RingProcessId,3);
         }
     }
-
     else if(nargs==4 && strcmp(args[1],"transfer")==0){
         if(LoggedIn==1){
             int amount=atoi(args[3]);
@@ -141,6 +140,7 @@ shellcmd xsh_user(int32 nargs, char *args[]) {
         }
         else{
             kprintf("\nPlease log in to continue..\n");
+            send(RingProcessId,3);
         }
     }
     else if(nargs==2 && strcmp(args[1],"logout")==0){
@@ -152,6 +152,7 @@ shellcmd xsh_user(int32 nargs, char *args[]) {
         }
         else{
             kprintf("\nPlease log in to continue..\n");
+            send(RingProcessId,3);
         }
     }
     else if(nargs==2 && strcmp(args[1],"balance")==0){
@@ -206,15 +207,16 @@ shellcmd xsh_user(int32 nargs, char *args[]) {
         }
         else{
             kprintf("\nPlease log in to continue..\n");
+            send(RingProcessId,3);
         }
     }
-
     else{
         kprintf("\nAvailable Commands are:\n");
         kprintf("user login\n");
         kprintf("user withdraw [amount]\n");
         kprintf("user deposit [amount]\n");
         kprintf("user transfer [receiverAccountNumber] [amount]\n\n");
+        kprintf("user balance\n\n");
     }
 	return 0;
 }

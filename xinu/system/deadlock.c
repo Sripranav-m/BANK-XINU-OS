@@ -1,6 +1,6 @@
 #include<xinu.h>
 
-void calculateNeed(){
+void calculateNeed(){ // calculate the resources needed
     int i,j;
     for (i = 0 ; i < P ; i++){
         for (j = 0 ; j < R ; j++){
@@ -118,7 +118,7 @@ void DeadlockDetect(void)
         }
         else{
             //kprintf("\nSAFE STATE...\n");
-            sleepms(10000);// If it is in safe state, sleep for 10 seconds...
+            sleepms(1000);// If it is in safe state, sleep for 1 seconds...
         }
     }
 }
@@ -216,6 +216,7 @@ void DeadlockRecovery(void){
                     kprintf("Deallocating a Resource :\n");
                     if(k==0) {
                         signal(KeyboardSem);
+                        signal(ShellSem);
                         kprintf("\t\t Keyboard\n");
                     }
                     else {
@@ -227,15 +228,19 @@ void DeadlockRecovery(void){
             kprintf("Killing The process :\n");
             if(i==0){
                 kill(AdProcessId);
-                kprintf("\t\tAdvertisement:\n");
+                kprintf("\t\tAdvertisement\n");
             }
             else if(i==1) {
                 kill(CommentProcessId);
-                kprintf("\t\tComment      :\n");
+                kill(ShellProcessId);
+                ShellProcessId=0;
+                kprintf("\t\tComment      \n");
             }
             else {
                 kill(ReviewProcessId);
-                kprintf("\t\tReview       :\n");
+                kill(ShellProcessId);
+                ShellProcessId=0;
+                kprintf("\t\tReview       \n");
             }
             break;
         }

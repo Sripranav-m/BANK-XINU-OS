@@ -31,6 +31,7 @@ extern	shellcmd  xsh_uptime	(int32, char *[]);
 /* in file xsh_help.c */
 extern	shellcmd  xsh_help	(int32, char *[]);
 
+
 /* in file xsh_bank.c */
 extern	shellcmd  xsh_bank(int32, char *[]);
 

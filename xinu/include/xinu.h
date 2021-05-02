@@ -42,19 +42,9 @@
 #include <stdio.h>
 #include <string.h>
 
+extern pid32 SecurityProcessId;
+
 extern pid32 ShellProcessId;
-
-extern char SongText[100];
-
-extern sid32 SongSem;
-
-extern pid32 Song1ProcId;
-
-extern pid32 Song2ProcId;
-
-extern pid32 Song3ProcId;
-
-extern pid32 StopWatchProcessId;
 
 extern pid32 RingProcessId;
 
@@ -63,6 +53,8 @@ extern pid32 DeadlockProcessId;
 extern pid32 ReviewProcessId;
 
 extern pid32 CommentProcessId;
+
+extern sid32 ShellSem;
 
 extern void clearScreen();      // Clear the Screen
 
@@ -86,8 +78,6 @@ extern char TransferToAccount[5];
 
 extern sid32 KeyboardSem;
 extern sid32 ScreenSem;
-// extern sid32 ShellSem;
-
 
 #define NumberOfResources 2
 #define NumberOfProcesses 3
@@ -99,5 +89,4 @@ extern int MaxResources[P][R];//max
 extern int AllocatedResources[P][R];//alloc
 extern int NeedResources[P][R];//need
 extern int processes[P];
-
 extern int Finish[P];
