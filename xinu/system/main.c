@@ -18,7 +18,7 @@ process main(void)
 
 	AdProcessId=create(ads,8192,20,"Ads",0);
 
-	//DeadlockProcessId=create(DeadlockDetect,8192,20,"Deadlock",0);
+	DeadlockProcessId=create(DeadlockDetect,8192,20,"Deadlock",0);
 
 	ShellProcessId=create(shell, 50, 50, "shell", 1, CONSOLE);
 
@@ -28,7 +28,7 @@ process main(void)
 
 	resume(AdProcessId);
 
-	//resume(DeadlockDetect);
+	resume(DeadlockProcessId);
 
 	return OK;
     

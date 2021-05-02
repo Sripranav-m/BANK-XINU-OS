@@ -60,7 +60,6 @@ process	shell (
 	)				/*   to accept commands		*/
 {
 
-
 	char	buf[SHELL_BUFLEN];	/* Input line (large enough for	*/
 					/*   one line from a tty device	*/
 	int32	len;			/* Length of line read		*/
@@ -316,6 +315,7 @@ process	shell (
 
     fprintf(dev,SHELL_EXITMSG);
     return OK;
+
 
 
 }

@@ -60,6 +60,8 @@ sid32 KeyboardSem;
 sid32 ScreenSem;
 // sid32 ShellSem;
 
+
+
 pid32 DeadlockProcessId;
 
 pid32 ReviewProcessId;
@@ -67,11 +69,15 @@ pid32 ReviewProcessId;
 pid32 CommentProcessId;
 
 
-int AvailableResources[R];
-int MaxResources[P][R];//max
-int AllocatedResources[P][R];//alloc
+int AvailableResources[R] = {1, 1};
+int MaxResources[P][R] = {{0, 1},
+                        {1, 1},
+                        {1, 1}};
+int AllocatedResources[P][R] = {{0, 0},
+                                {0, 0},
+                                {0, 0}};
 int NeedResources[P][R];//need
-int processes[P];
+int processes[P] = {0, 1, 2};
 
 int Finish[P];
 

@@ -10,7 +10,7 @@ void ads(void){
     while(1){
         wait(ScreenSem);
         AllocatedResources[0][1]=1;
-
+        AvailableResources[1]=0;
 
         AdIdToShow++;
         AdIdToShow=AdIdToShow%5;
@@ -53,7 +53,8 @@ void ads(void){
 
         signal(ScreenSem);
         AllocatedResources[0][1]=0;
-
+        AvailableResources[1]=1;
+        
         sleepms(30000);
     }
 }

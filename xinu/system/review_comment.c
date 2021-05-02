@@ -3,6 +3,7 @@
 void review(void){
     wait(ScreenSem);
     AllocatedResources[2][1]=1;
+    AvailableResources[1]=0;
     clearScreen();
 
     int i;
@@ -31,6 +32,7 @@ void review(void){
 
     wait(KeyboardSem);
     AllocatedResources[2][0]=1;
+    AvailableResources[0]=0;
 
 
     kill(ShellProcessId);
@@ -68,15 +70,18 @@ void review(void){
 
     signal(KeyboardSem);
     AllocatedResources[2][0]=0;
+    AvailableResources[0]=1;
 
 
     signal(ScreenSem);
     AllocatedResources[2][1]=0;
+    AvailableResources[1]=1;
 }
 
 void comment(void){
     wait(KeyboardSem);
     AllocatedResources[1][0]=1;
+    AvailableResources[0]=0;
 
 
     kill(ShellProcessId);
@@ -98,6 +103,7 @@ void comment(void){
 
     wait(ScreenSem);
     AllocatedResources[1][1]=1;
+    AvailableResources[1]=0;
     
 
     char* Ss="\n\n$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$\n";
@@ -127,8 +133,10 @@ void comment(void){
 
     signal(ScreenSem);
     AllocatedResources[1][1]=0;
+    AvailableResources[1]=1;
 
 
     signal(KeyboardSem);
     AllocatedResources[1][0]=0;
+    AvailableResources[0]=1;
 }

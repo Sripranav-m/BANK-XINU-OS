@@ -158,9 +158,9 @@ shellcmd xsh_user(int32 nargs, char *args[]) {
     else{
         kprintf("\nAvailable Commands are:\n");
         kprintf("user login\n");
-        kprintf("user withdraw\n");
-        kprintf("user deposit\n\n");
-        kprintf("user transfer\n\n");
+        kprintf("user withdraw [amount]\n");
+        kprintf("user deposit [amount]\n");
+        kprintf("user transfer [receiverAccountNumber] [amount]\n\n");
     }
 	return 0;
 }
