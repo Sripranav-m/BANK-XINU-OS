@@ -650,3 +650,8 @@ extern void DeadlockRecovery(void);
 void review(void);
 
 void comment(void);
+
+/*in file queue.c*/
+extern  int32    getTickets(qid16);
+
+extern  pid32   dequeueProcess(qid16,  int32);

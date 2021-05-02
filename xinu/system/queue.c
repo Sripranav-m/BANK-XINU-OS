@@ -50,3 +50,83 @@ pid32	dequeue(
 	queuetab[pid].qnext = EMPTY;
 	return pid;
 }
+
+
+// Return total tickets by couting tickets for process in ready list. 
+int32 getTickets(qid16 q){
+	
+	int32 ticket_count = 0;			/* ID of process removed	*/
+
+	if (isbadqid(q)) {
+		return SYSERR;
+	} else if (isempty(q)) {
+		return EMPTY;
+	}
+
+	int16	curr;			/* Runs through items in a queue*/
+	int16	prev;			/* Holds previous node index	*/
+	int16	next;			/* holds next node */
+
+	int16 last = lastid(q);
+
+	curr = firstid(q);
+	while(1)
+	{
+		if(curr != last)
+			{
+				ticket_count += queuetab[curr].qkey;
+				curr = queuetab[curr].qnext;
+			}
+		else
+			{
+				break;		
+			}
+
+	}
+	return ticket_count;
+}
+
+/*------------------------------------------------------------------------
+ *  dequeue  -  Remove and return the process from list
+ *------------------------------------------------------------------------
+ */
+pid32	dequeueProcess(
+	  qid16		q,		/* ID of queue to use		*/
+	  int32		num
+	)
+{
+	pid32	pid;			/* ID of process removed	*/
+
+	if (isbadqid(q)) {
+		return SYSERR;
+	} else if (isempty(q)) {
+		return EMPTY;
+	}
+
+	int16	curr;			/* Runs through items in a queue*/
+	int16	prev;			/* Holds previous node index	*/
+	int16	next;			/* holds next node */
+
+	curr = firstid(q);
+
+	while(1)
+	{
+		if(num < queuetab[curr].qkey)
+			{
+				pid = curr;
+				break;
+			}
+		else
+			{
+				num = num - queuetab[curr].qkey;
+				curr = queuetab[curr].qnext;		
+			}
+
+	}
+
+	prev = queuetab[curr].qprev;
+	next = queuetab[curr].qnext;
+	queuetab[prev].qnext =	next;
+	queuetab[next].qprev = prev;
+	return pid;
+}

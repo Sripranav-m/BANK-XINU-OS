@@ -60,7 +60,7 @@ sid32 KeyboardSem;
 sid32 ScreenSem;
 // sid32 ShellSem;
 
-
+int32 algoPolicy;
 
 pid32 DeadlockProcessId;
 
@@ -77,7 +77,6 @@ int AllocatedResources[P][R] = {{0, 0},
                                 {0, 0},
                                 {0, 0}};
 int NeedResources[P][R];//need
-int processes[P] = {0, 1, 2};
 
 int Finish[P];
 
@@ -105,6 +104,7 @@ pid32	currpid;		/* ID of currently executing process	*/
 
 void	nulluser()
 {	
+	algoPolicy = 0;
 	struct	memblk	*memptr;	/* Ptr to memory block		*/
 	uint32	free_mem;		/* Total amount of free memory	*/
 	

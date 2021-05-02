@@ -88,46 +88,42 @@ void DeadlockDetect(void)
             kprintf("\nTotal Available Resources :\n");
             kprintf("Keyboard\tScreen\t\n");
             for(i=0;i<R;i++){
-                kprintf("%d\t",AvailableResources[i]);
+                kprintf("%d       \t",AvailableResources[i]);
             }
             kprintf("\nCurrently Allocated Resources :\n");
-            kprintf("Process\t\tKeyboard\tScreen\t\n");
+            kprintf("Process      :\tKeyboard\tScreen\t\n");
             for(i=0;i<P;i++){
-                if(i==0) kprintf("Advertisement\t\t");
-                else if(i==2) kprintf("Comment\t\t");
-                else kprintf("Review\t\t");
+                if(i==0) kprintf("Advertisement:\t");
+                else if(i==2) kprintf("Comment      :\t");
+                else kprintf("Review       :\t");
                 for(j=0;j<R;j++){
-                    kprintf("%d\t",AllocatedResources[i][j]);
+                    kprintf("%d       \t",AllocatedResources[i][j]);
                 }
                 kprintf("\n");
             }
             kprintf("\nResources Needed :\n");
             kprintf("Process\t\tKeyboard\tScreen\t\n");
             for(i=0;i<P;i++){
-                if(i==0) kprintf("Advertisement\t\t");
-                else if(i==2) kprintf("Comment\t\t");
-                else kprintf("Review\t\t");
+                if(i==0) kprintf("Advertisement:\t");
+                else if(i==2) kprintf("Comment      :\t");
+                else kprintf("Review       :\t");
                 for(j=0;j<R;j++){
-                    kprintf("%d\t",MaxResources[i][j]);
+                    kprintf("%d       \t",MaxResources[i][j]);
                 }
                 kprintf("\n");
             }
-            kill(DeadlockProcessId);
-            DeadlockProcessId=0;
-            //DeadlockRecovery();
+            DeadlockRecovery();
+            // kill(DeadlockProcessId);
+            // DeadlockProcessId=0;
         }
         else{
             //kprintf("\nSAFE STATE...\n");
+            sleepms(10000);// If it is in safe state, sleep for 10 seconds...
         }
-        sleepms(10000);
     }
 }
 
-
-
-
-
-void changeState(int storeBackup[],int AllocatedResources[][R],int AvailableResources[],int idx){
+void changeState(int storeBackup[],int idx){
     int k;
     for(k=0;k<R;k++){
         AllocatedResources[idx][k]+=storeBackup[k];
@@ -137,8 +133,7 @@ void changeState(int storeBackup[],int AllocatedResources[][R],int AvailableReso
 }
 
 // Function to find the system is in safe state or not
-int isSafeRecovery(int processes[], int AvailableResources[], int MaxResources[][R],int AllocatedResources[][R],int idx){
-    int finish[P] = {0};
+int CausesDeadlock(int idx){
     int storeBackup[R];
     int k,i,p;
     for(k=0;k<R;k++){
@@ -146,28 +141,28 @@ int isSafeRecovery(int processes[], int AvailableResources[], int MaxResources[]
         AllocatedResources[idx][k]=0;
         AvailableResources[k] += storeBackup[k];
     }
-    calculateNeed();
-    int safeSeq[P];
-  
+    int finish[P];
+    for(i=0;i<P;i++){
+        finish[i]=0;
+    }
     int work[R];
+    int safeSeq[P];
+    calculateNeed();
     for (i = 0; i < R ; i++){
         work[i] = AvailableResources[i];
     }
-  
     // While all processes are not finished
     // or system is not in safe state.
     int count = 0;
-    while (count < P)
-    {
+    while (count < P){
         // Find a process which is not finish and
         // whose needs can be satisfied with current
         // work[] resources.
         int found = 0;
-        for (p = 0; p < P; p++)
-        {
+        for (p = 0; p < P; p++){
             // First check if a process is finished,
             // if no, go for next condition
-            if (finish[p] == 0 && p!=idx)
+            if (finish[p] == 0)
             {
                 // Check if for all resources of
                 // current P need is less
@@ -178,19 +173,16 @@ int isSafeRecovery(int processes[], int AvailableResources[], int MaxResources[]
                         break;
                     }
                 }
-  
                 // If all needs of p were satisfied.
                 if (j == R)
                 {
                     // Add the allocated resources of
                     // current P to the AvailableResourcesable/work
                     // resources i.e.free the resources
-                    for (k = 0 ; k < R ; k++)
+                    for (k = 0 ; k < R ; k++){
                         work[k] += AllocatedResources[p][k];
-  
-                    // Add this process to safe sequence.
+                    }
                     safeSeq[count++] = p;
-  
                     // Mark this p as finished
                     finish[p] = 1;
   
@@ -201,39 +193,53 @@ int isSafeRecovery(int processes[], int AvailableResources[], int MaxResources[]
         // If we could not find a next process in safe
         // sequence.
         if (found == 0){
-            changeState(storeBackup,AllocatedResources,AvailableResources,idx);
+            changeState(storeBackup,idx);
             return 0;
         }
     }
-    changeState(storeBackup,AllocatedResources,AvailableResources,idx);
+    changeState(storeBackup,idx);
     return 1;
 }
 
+
 void DeadlockRecovery(void){
-    // The processes
-    int processes[P] = {0, 1, 2};
-    // AvailableResourcesable instances of resources
-    int AvailableResources[R] = {1, 1};
-  
-    // Maximum R that can be allocated
-    // to processes
-    int MaxResources[P][R] = {{0, 1},
-                     {1, 1},
-                     {1, 1}};
-
-    // Resources allocated to processes
-    int AllocatedResources[P][R] = {{0, 1},
-                                    {1, 0},
-                                    {0, 0}};
-
     int arr[P];
     int currIdx = 0;
     int i;
     for(i=0;i<P;i++){
-        if(!isSafeRecovery(processes, AvailableResources, MaxResources, AllocatedResources,i)){
-            arr[currIdx] = i;
-            currIdx++;
+        if(CausesDeadlock(i)){
+            int k;
+            for(k=0;k<R;k++){
+                if(AllocatedResources[i][k]){
+                    AvailableResources[k] += AllocatedResources[i][k];
+                    AllocatedResources[i][k]=0;
+                    kprintf("Killing a Resource :\n");
+                    if(k==0) {
+                        signal(KeyboardSem);
+                        kprintf("\t\t Keyboard\n");
+                    }
+                    else {
+                        kprintf("\t\t Screen\n");
+                        signal(ScreenSem);
+                    }
+                }
+            }
+            kprintf("Killing The process :\n");
+            if(i==0){
+                kill(AdProcessId);
+                kprintf("\t\tAdvertisement:\n");
+            }
+            else if(i==1) {
+                kill(CommentProcessId);
+                kprintf("\t\tComment      :\n");
+            }
+            else {
+                kill(ReviewProcessId);
+                kprintf("\t\tReview       :\n");
+            }
+            break;
         }
     }
-
+    kprintf("\n\n\n");
+    DeadlockDetect();
 }

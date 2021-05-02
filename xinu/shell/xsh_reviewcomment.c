@@ -7,7 +7,7 @@ shellcmd xsh_reviewcomment(int32 nargs, char *args[]) {
 			resume(ReviewProcessId);
 		}
 		else if(nargs==1 && strcmp("comment",args[0])==0){
-			CommentProcessId=create(comment,8192,50,"Comment",0);
+			CommentProcessId=create(comment,8192,40,"Comment",0);
 			resume(CommentProcessId);
 		}
 	}
